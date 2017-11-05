@@ -1,0 +1,27 @@
+digraph {
+	compound = "true"
+	newrank = "true"
+	subgraph "root" {
+		"[root] aws_s3_bucket.bucket" [label = "aws_s3_bucket.bucket", shape = "box"]
+		"[root] provider.aws" [label = "provider.aws", shape = "diamond"]
+		"[root] aws_s3_bucket.bucket" -> "[root] provider.aws"
+		"[root] aws_s3_bucket.bucket" -> "[root] var.environment"
+		"[root] aws_s3_bucket.bucket" -> "[root] var.name"
+		"[root] aws_s3_bucket.bucket" -> "[root] var.namespaced"
+		"[root] aws_s3_bucket.bucket" -> "[root] var.tags"
+		"[root] output.s3_bucket_arn" -> "[root] aws_s3_bucket.bucket"
+		"[root] output.s3_bucket_domain_name" -> "[root] aws_s3_bucket.bucket"
+		"[root] output.s3_bucket_hosted_zone_id" -> "[root] aws_s3_bucket.bucket"
+		"[root] output.s3_bucket_id" -> "[root] aws_s3_bucket.bucket"
+		"[root] output.s3_bucket_name" -> "[root] aws_s3_bucket.bucket"
+		"[root] output.s3_bucket_region" -> "[root] aws_s3_bucket.bucket"
+		"[root] root" -> "[root] output.s3_bucket_arn"
+		"[root] root" -> "[root] output.s3_bucket_domain_name"
+		"[root] root" -> "[root] output.s3_bucket_hosted_zone_id"
+		"[root] root" -> "[root] output.s3_bucket_id"
+		"[root] root" -> "[root] output.s3_bucket_name"
+		"[root] root" -> "[root] output.s3_bucket_region"
+		"[root] root" -> "[root] var.principal"
+	}
+}
+
