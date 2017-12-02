@@ -25,7 +25,7 @@ resource "aws_s3_bucket" "this" {
   bucket = "${var.namespaced ?
    format("%s-%s-%s", var.org, var.environment, element(var.names, count.index)) :
    format("%s-%s", var.org, element(var.names, count.index))}"
-  acl = "${var.public ? public-read : private}"
+  acl = "${var.public ? "public-read" : "private"}"
   versioning {
     enabled = "${var.versioned}"
   }
