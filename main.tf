@@ -23,8 +23,8 @@
 resource "aws_s3_bucket" "this" {
   count = "${length(var.names)}"
   bucket = "${var.namespaced ?
-   format("%s-%s-%s", var.org, var.environment, element(var.names, count.index)) :
-   format("%s-%s", var.org, element(var.names, count.index))}"
+   format("%s-%s-%s", var.org, var.environment, replace(element(var.names, count.index), "_", "-")) :
+   format("%s-%s", var.org, replace(element(var.names, count.index), "_", "-"))}"
   acl = "${var.public ? "public-read" : "private"}"
   versioning {
     enabled = "${var.versioned}"
@@ -42,8 +42,8 @@ resource "aws_s3_bucket" "this" {
   tags = "${ merge(
     var.tags,
     map("Name", var.namespaced ?
-     format("%s-%s-s3-bucket", var.environment, element(var.names, count.index)) :
-     format("%s-s3-bucket", element(var.names, count.index)) ),
+     format("%s-%s", var.environment, replace(element(var.names, count.index), "_", "-")) :
+     format("%s", replace(element(var.names, count.index), "_", "-")) ),
     map("Environment", var.environment),
     map("Terraform", "true") )}"
 }
