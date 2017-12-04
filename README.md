@@ -3,6 +3,8 @@ AWS S3 Buckets Terraform module
 
 Terraform module which creates S3 buckets on AWS.
 
+Terraform Registry: https://registry.terraform.io/modules/devops-workflow/s3-buckets/aws
+
 Usage
 -----
 
