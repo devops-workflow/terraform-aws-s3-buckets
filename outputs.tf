@@ -1,25 +1,25 @@
 
-output "arn" {
+output "arns" {
   description = "List of AWS S3 Bucket ARNs"
   value = "${aws_s3_bucket.this.*.arn}"
 }
-output "domain_name" {
+output "domain_names" {
   description = "List of AWS S3 Bucket Domain Names"
   value = "${aws_s3_bucket.this.*.bucket_domain_name}"
 }
-output "hosted_zone_id" {
+output "hosted_zone_ids" {
   description = "List of AWS S3 Bucket Hosted Zone IDs"
   value = "${aws_s3_bucket.this.*.hosted_zone_id}"
 }
-output "id" {
+output "ids" {
   description = "List of AWS S3 Bucket IDs"
   value       = "${aws_s3_bucket.this.*.id}"
 }
-output "name" {
+output "names" {
   description = "List of AWS S3 Bucket Names"
   value = "${aws_s3_bucket.this.*.id}"
 }
-output "region" {
+output "regions" {
   description = "List of AWS S3 Bucket Regions"
   value = "${aws_s3_bucket.this.*.region}"
 }
