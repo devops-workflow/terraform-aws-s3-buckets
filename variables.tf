@@ -17,9 +17,13 @@ variable "tags" {
   description = "A map of tags to add to all resources"
   default     = {}
 }
-
 variable "org" {
   description = "Organization name to prefix S3 buckets with"
+}
+
+variable "enabled" {
+  description = "Set to false to prevent the module from creating anything"
+  default     = true
 }
 
 // Module specific Variables

@@ -20,8 +20,34 @@
 # create s3 bucket and set policy
 # TODO: setup encryption
 
+# https://www.terraform.io/docs/providers/aws/r/aws_s3_bucket.html
+# https://www.terraform.io/docs/providers/aws/r/aws_s3_bucket_policy.html
+# https://www.terraform.io/docs/providers/aws/r/aws_s3_bucket_notification.html
+# https://www.terraform.io/docs/providers/aws/r/aws_s3_bucket_object.html
+
+module "enabled" {
+  source  = "devops-workflow/boolean/local"
+  version = "0.1.1"
+  value   = "${var.enabled}"
+}
+
+/*
+module "label" {
+  source        = "devops-workflow/label/local"
+  version       = "0.1.3"
+  organization  = "${var.organization}"
+  name          = "${var.name}"
+  namespace-env = "${var.namespace-env}"
+  namespace-org = "${var.namespace-org}"
+  environment   = "${var.environment}"
+  delimiter     = "${var.delimiter}"
+  attributes    = "${var.attributes}"
+  tags          = "${var.tags}"
+}
+*/
+
 resource "aws_s3_bucket" "this" {
-  count = "${length(var.names)}"
+  count = "${module.enabled.value ? length(var.names) : 0}"
   bucket = "${var.namespaced ?
    format("%s-%s-%s", var.org, var.environment, replace(element(var.names, count.index), "_", "-")) :
    format("%s-%s", var.org, replace(element(var.names, count.index), "_", "-"))}"
