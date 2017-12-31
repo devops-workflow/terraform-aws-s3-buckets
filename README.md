@@ -11,8 +11,16 @@ Usage
 ```hcl
 module "s3-buckets" {
   source      = "devops-workflow/s3-buckets/aws"
-  names       = ["bucket-1", "bucket2", "bucket_3"]
+  names       = ["bucket1", "bucket2", "bucket3"]
   environment = "dev"
   org         = "corp"
 }
+```
+
+This would create/manage 3 S3 buckets: `corp-dev-bucket1`, `corp-dev-bucket2`, and `corp-dev-bucket3`
+
+If a S3 bucket already exists, you will need to import it. Like this:
+
+```
+terraform import module.s3-buckets.aws_s3_bucket.this[0] corp-dev-bucket1
 ```
