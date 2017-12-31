@@ -21,6 +21,6 @@ This would create/manage 3 S3 buckets: `corp-dev-bucket1`, `corp-dev-bucket2`, a
 
 If a S3 bucket already exists, you will need to import it. Like this:
 
-```
+```Shell
 terraform import module.s3-buckets.aws_s3_bucket.this[0] corp-dev-bucket1
 ```
