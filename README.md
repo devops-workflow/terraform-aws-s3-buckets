@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/devops-workflow/terraform-aws-s3-buckets?style=svg)](https://circleci.com/gh/devops-workflow/terraform-aws-s3-buckets)
+
 AWS S3 Buckets Terraform module
 ========================
 

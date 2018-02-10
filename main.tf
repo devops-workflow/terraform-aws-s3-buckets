@@ -48,13 +48,17 @@ module "label" {
 
 resource "aws_s3_bucket" "this" {
   count = "${module.enabled.value ? length(var.names) : 0}"
+
   bucket = "${var.namespaced ?
    format("%s-%s-%s", var.org, var.environment, replace(element(var.names, count.index), "_", "-")) :
    format("%s-%s", var.org, replace(element(var.names, count.index), "_", "-"))}"
+
   acl = "${var.public ? "public-read" : "private"}"
+
   versioning {
     enabled = "${var.versioned}"
   }
+
   #acceleration_status
   #force_destroy = true
   #lifecycle_rule {}
@@ -91,7 +95,9 @@ resource "aws_s3_bucket_policy" "bucket_policy" {
 }
 */
 
+
 #resource "aws_s3_bucket_notification"
+
 
 /*
 resource "aws_s3_bucket_object" "this" {
@@ -102,3 +108,4 @@ resource "aws_s3_bucket_object" "this" {
   etag    = "${md5(file("${lookup(var.files, element(keys(var.files), count.index))}"))}"
 }
 */
+

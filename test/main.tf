@@ -1,4 +1,3 @@
-
 module "s3-none" {
   source      = ".."
   names       = []
