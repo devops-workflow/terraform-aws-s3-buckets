@@ -54,15 +54,15 @@ module "labels" {
 resource "aws_s3_bucket" "this" {
   count = "${module.enabled.value ? length(var.names) : 0}"
 
-  bucket = "${module.labels.id[count.index]}"
-  acl    = "${var.public ? "public-read" : "private"}"
+  bucket        = "${module.labels.id[count.index]}"
+  acl           = "${var.public ? "public-read" : "private"}"
+  force_destroy = "${var.force_destroy}"
 
   versioning {
     enabled = "${var.versioned}"
   }
 
   #acceleration_status
-  #force_destroy = true
   #lifecycle_rule {}
   #logging {
   #  target_bucket
@@ -71,6 +71,7 @@ resource "aws_s3_bucket" "this" {
   #region
   #request_payer
   #replication_configuration {}
+  #server_side_encryption_configuration
   tags = "${module.labels.tags[count.index]}"
 }
 

@@ -87,6 +87,11 @@ variable "enabled" {
   default     = true
 }
 
+variable "force_destroy" {
+  description = "Delete all objects in bucket on destroy"
+  default     = false
+}
+
 variable "principal" {
   description = "principal"
   default     = "*"
