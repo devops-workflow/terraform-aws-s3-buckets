@@ -1,7 +1,7 @@
-[![CircleCI](https://circleci.com/gh/devops-workflow/terraform-aws-s3-buckets?style=svg)](https://circleci.com/gh/devops-workflow/terraform-aws-s3-buckets)
+[![CircleCI](https://circleci.com/gh/appzen-oss/terraform-aws-s3-buckets?style=svg)](https://circleci.com/gh/appzen-oss/terraform-aws-s3-buckets)
+[![Github release](https://img.shields.io/github/release/appzen-oss/terraform-aws-s3-buckets.svg)](https://github.com/appzen-oss/terraform-aws-s3-buckets/releases)
 
-AWS S3 Buckets Terraform module
-========================
+# AWS S3 Buckets Terraform module
 
 Terraform module which creates S3 buckets on AWS.
 
@@ -12,10 +12,10 @@ Usage
 
 ```hcl
 module "s3-buckets" {
-  source      = "devops-workflow/s3-buckets/aws"
-  names       = ["bucket1", "bucket2", "bucket3"]
-  environment = "dev"
-  org         = "corp"
+  source       = "devops-workflow/s3-buckets/aws"
+  names        = ["bucket1", "bucket2", "bucket3"]
+  environment  = "dev"
+  organization = "corp"
 }
 ```
 
