@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/appzen-oss/terraform-aws-s3-buckets?style=svg)](https://circleci.com/gh/appzen-oss/terraform-aws-s3-buckets)
+[![CircleCI](https://circleci.com/gh/appzen-oss/terraform-aws-s3-buckets.svg?style=svg)](https://circleci.com/gh/appzen-oss/terraform-aws-s3-buckets)
 [![Github release](https://img.shields.io/github/release/appzen-oss/terraform-aws-s3-buckets.svg)](https://github.com/appzen-oss/terraform-aws-s3-buckets/releases)
 
 # AWS S3 Buckets Terraform module
