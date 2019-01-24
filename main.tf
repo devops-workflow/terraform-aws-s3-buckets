@@ -27,13 +27,13 @@
 
 module "enabled" {
   source  = "devops-workflow/boolean/local"
-  version = "0.1.1"
+  version = "0.1.2"
   value   = "${var.enabled}"
 }
 
 module "labels" {
-  source        = "devops-workflow/labels/null"
-  version       = "0.1.0"
+  source        = "appzen-oss/labels/null"
+  version       = "0.2.0"
   attributes    = "${var.attributes}"
   component     = "${var.component}"
   delimiter     = "${var.delimiter}"
@@ -105,4 +105,3 @@ resource "aws_s3_bucket_object" "this" {
   etag    = "${md5(file("${lookup(var.files, element(keys(var.files), count.index))}"))}"
 }
 */
-
