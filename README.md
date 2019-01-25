@@ -1,14 +1,13 @@
+# AWS S3 Buckets Terraform module
+
 [![CircleCI](https://circleci.com/gh/appzen-oss/terraform-aws-s3-buckets.svg?style=svg)](https://circleci.com/gh/appzen-oss/terraform-aws-s3-buckets)
 [![Github release](https://img.shields.io/github/release/appzen-oss/terraform-aws-s3-buckets.svg)](https://github.com/appzen-oss/terraform-aws-s3-buckets/releases)
-
-# AWS S3 Buckets Terraform module
 
 Terraform module which creates S3 buckets on AWS.
 
 Terraform Registry: https://registry.terraform.io/modules/devops-workflow/s3-buckets/aws
 
-Usage
------
+## Usage
 
 ```hcl
 module "s3-buckets" {
@@ -19,10 +18,76 @@ module "s3-buckets" {
 }
 ```
 
-This would create/manage 3 S3 buckets: `corp-dev-bucket1`, `corp-dev-bucket2`, and `corp-dev-bucket3`
+This would create/manage 3 S3 buckets: `corp-dev-bucket1`, `corp-dev-bucket2`,
+and `corp-dev-bucket3`
 
 If a S3 bucket already exists, you will need to import it. Like this:
 
 ```Shell
 terraform import module.s3-buckets.aws_s3_bucket.this[0] corp-dev-bucket1
 ```
+
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM GRAPH HOOK -->
+
+## Resource Graph of plan
+
+![Terraform Graph](resource-plan-graph.png)
+<!-- END OF PRE-COMMIT-TERRAFORM GRAPH HOOK -->
+
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+AWS S3 Bucket Terraform Module
+=====================
+
+Create multiple AWS S3 buckets and set policies
+
+## Usage
+
+'''hcl
+    module "s3-bucket" {
+      source       = "../s3-bucket"
+      names        = ["images","thumbnails"]
+      environment  = "dev"
+      org          = "corp"
+    }
+'''
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|:----:|:-----:|:-----:|
+| attributes | Suffix name with additional attributes (policy, role, etc.) | list | `<list>` | no |
+| block\_public\_acls | Whether Amazon S3 should block public ACLs for this bucket | string | `"true"` | no |
+| block\_public\_policy | Whether Amazon S3 should block public bucket policies for this bucket | string | `"true"` | no |
+| component | TAG: Underlying, dedicated piece of service (Cache, DB, ...) | string | `"UNDEF-S3-Buckets"` | no |
+| delimiter | Delimiter to be used between `name`, `namespaces`, `attributes`, etc. | string | `"-"` | no |
+| enabled | Set to false to prevent the module from creating anything | string | `"true"` | no |
+| environment | Environment (ex: `dev`, `qa`, `stage`, `prod`). (Second or top level namespace. Depending on namespacing options) | string | n/a | yes |
+| force\_destroy | Delete all objects in bucket on destroy | string | `"false"` | no |
+| ignore\_public\_acls | Whether Amazon S3 should ignore public ACLs for this bucket | string | `"true"` | no |
+| monitor | TAG: Should resource be monitored | string | `"UNDEF-S3-Buckets"` | no |
+| names | List of S3 bucket names | list | n/a | yes |
+| namespace-env | Prefix name with the environment. If true, format is: <env>-<name> | string | `"true"` | no |
+| namespace-org | Prefix name with the organization. If true, format is: <org>-<env namespaced name>. If both env and org namespaces are used, format will be <org>-<env>-<name> | string | `"true"` | no |
+| organization | Organization name (Top level namespace) | string | `""` | no |
+| owner | TAG: Owner of the service | string | `"UNDEF-S3-Buckets"` | no |
+| principal | principal | string | `"*"` | no |
+| product | TAG: Company/business product | string | `"UNDEF-S3-Buckets"` | no |
+| public | Allow public read access to bucket | string | `"false"` | no |
+| restrict\_public\_buckets | Whether Amazon S3 should restrict public bucket policies for this bucket | string | `"true"` | no |
+| service | TAG: Application (microservice) name | string | `"UNDEF-S3-Buckets"` | no |
+| tags | A map of additional tags | map | `<map>` | no |
+| team | TAG: Department/team of people responsible for service | string | `"UNDEF-S3-Buckets"` | no |
+| versioned | Version the bucket | string | `"false"` | no |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| arns | List of AWS S3 Bucket ARNs |
+| domain\_names | List of AWS S3 Bucket Domain Names |
+| hosted\_zone\_ids | List of AWS S3 Bucket Hosted Zone IDs |
+| ids | List of AWS S3 Bucket IDs |
+| names | List of AWS S3 Bucket Names |
+| regions | List of AWS S3 Bucket Regions |
+
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
