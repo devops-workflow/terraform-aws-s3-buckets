@@ -18,7 +18,9 @@
 
 # TODO: Allow pass policy via variable. Default empty policy. If can be done, otherwise 2 modules
 # create s3 bucket and set policy
-# TODO: setup encryption
+# TODO:
+#   support w. or w/o encryption
+#   manage public block
 
 # https://www.terraform.io/docs/providers/aws/r/aws_s3_bucket.html
 # https://www.terraform.io/docs/providers/aws/r/aws_s3_bucket_policy.html
@@ -71,8 +73,30 @@ resource "aws_s3_bucket" "this" {
   #region
   #request_payer
   #replication_configuration {}
-  #server_side_encryption_configuration
+
+
+  /*
+
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm     = "AES256"
+      }
+    }
+  }
+
+  /**/
+
   tags = "${module.labels.tags[count.index]}"
+}
+
+resource "aws_s3_bucket_public_access_block" "this" {
+  count                   = "${module.enabled.value ? length(var.names) : 0}"
+  bucket                  = "${module.labels.id[count.index]}"
+  block_public_acls       = "${var.block_public_acls}"
+  block_public_policy     = "${var.block_public_policy}"
+  ignore_public_acls      = "${var.ignore_public_acls}"
+  restrict_public_buckets = "${var.restrict_public_buckets}"
 }
 
 /*
@@ -101,7 +125,8 @@ resource "aws_s3_bucket_object" "this" {
   count   = "${length(var.files)}"
   bucket  = "${aws_s3_bucket.this.id}"
   key     = "${element(keys(var.files), count.index)}"
-  source  = "${lookup(var.files, element(keys(var.files), count.index))}"
+  #source  = "${lookup(var.files, element(keys(var.files), count.index))}"
   etag    = "${md5(file("${lookup(var.files, element(keys(var.files), count.index))}"))}"
 }
 */
+
