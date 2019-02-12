@@ -19,8 +19,8 @@
 # TODO: Allow pass policy via variable. Default empty policy. If can be done, otherwise 2 modules
 # create s3 bucket and set policy
 # TODO:
-#   support w. or w/o encryption
-#   manage public block
+#   support w. or w/o encryption (AES|KMS)
+#   use boolean for var.public
 
 # https://www.terraform.io/docs/providers/aws/r/aws_s3_bucket.html
 # https://www.terraform.io/docs/providers/aws/r/aws_s3_bucket_policy.html
@@ -70,7 +70,7 @@ resource "aws_s3_bucket" "this" {
   #  target_bucket
   #  target_prefix
   #}
-  #region
+  #region = "${var.region}"
   #request_payer
   #replication_configuration {}
 
@@ -91,6 +91,7 @@ resource "aws_s3_bucket" "this" {
 }
 
 resource "aws_s3_bucket_public_access_block" "this" {
+  depends_on              = ["aws_s3_bucket.this"]
   count                   = "${module.enabled.value ? length(var.names) : 0}"
   bucket                  = "${module.labels.id[count.index]}"
   block_public_acls       = "${var.block_public_acls}"

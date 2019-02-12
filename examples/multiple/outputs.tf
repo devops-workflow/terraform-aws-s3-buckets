@@ -18,6 +18,11 @@ output "ids" {
   value       = "${module.s3.ids}"
 }
 
+output "name_bases" {
+  description = "List of base names used to generate S3 bucket names"
+  value       = "${module.s3.name_bases}"
+}
+
 output "names" {
   description = "List of AWS S3 Bucket Names"
   value       = "${module.s3.names}"

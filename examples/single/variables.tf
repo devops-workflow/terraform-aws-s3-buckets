@@ -3,7 +3,7 @@ variable "environment" {
 }
 
 variable "organization" {
-  default = "testorg"
+  default = "testingorg"
 }
 
 variable "region" {
