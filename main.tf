@@ -1,20 +1,6 @@
-/**
- * AWS S3 Bucket Terraform Module
- * =====================
- *
- * Create multiple AWS S3 buckets and set policies
- *
- * Usage:
- * ------
- * '''hcl
- *     module "s3-bucket" {
- *       source       = "../s3-bucket"
- *       names        = ["images","thumbnails"]
- *       environment  = "dev"
- *       org          = "corp"
- *     }
- * '''
-**/
+##
+## terraform-aws-s3-buckets
+##
 
 # TODO: Allow pass policy via variable. Default empty policy. If can be done, otherwise 2 modules
 # create s3 bucket and set policy
