@@ -41,6 +41,8 @@ terraform import module.s3-buckets.aws_s3_bucket.this[0] corp-dev-bucket1
 | environment | Environment (ex: `dev`, `qa`, `stage`, `prod`). (Second or top level namespace. Depending on namespacing options) | string | n/a | yes |
 | force\_destroy | Delete all objects in bucket on destroy | string | `"false"` | no |
 | ignore\_public\_acls | Whether Amazon S3 should ignore public ACLs for this bucket | string | `"true"` | no |
+| kms\_encryption | Use Server-Side Encryption with AWS KMS-Managed Keys (SSE-KMS) | string | `"false"` | no |
+| kms\_master\_key\_id | If kms_encryption is true then pass ARN of AWS KMS master key ID | string | n/a | no |
 | monitor | TAG: Should resource be monitored | string | `"UNDEF-S3-Buckets"` | no |
 | names | List of S3 bucket names | list | n/a | yes |
 | namespace-env | Prefix name with the environment. If true, format is: <env>-<name> | string | `"true"` | no |

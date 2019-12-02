@@ -61,17 +61,14 @@ resource "aws_s3_bucket" "this" {
   #replication_configuration {}
 
 
-  /*
-
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
-        sse_algorithm     = "AES256"
+        sse_algorithm	= "${var.kms_encryption ? "aws:kms" : "AES256"}"
+	kms_master_key_id = "${var.kms_master_key_id}"
       }
     }
   }
-
-  /**/
 
   tags = "${module.labels.tags[count.index]}"
 }
