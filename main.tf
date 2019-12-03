@@ -41,7 +41,6 @@ module "labels" {
 
 ## if encryption is false then create bucket without encryption
 resource "aws_s3_bucket" "this" {
-  count = "${var.encryption ? 0 : 1}"
   count = "${module.enabled.value ? length(var.names) : 0}"
 
   bucket        = "${module.labels.id[count.index]}"
@@ -62,53 +61,42 @@ resource "aws_s3_bucket" "this" {
   #request_payer
   #replication_configuration {}
 
-  # count = "${var.encryption ? 1 : 0}"
-  # server_side_encryption_configuration {
-  #   rule {
-  #     apply_server_side_encryption_by_default {
-  #       sse_algorithm   = "${var.kms_master_key_id != "" ? "aws:kms" : "AES256"}"
-  #       kms_master_key_id = "${var.kms_master_key_id}"
-  #     }
-  #   }
-  # }
-
-  /*
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
-        sse_algorithm	= "${var.kms_encryption ? "aws:kms" : "AES256"}"
-	kms_master_key_id = "${var.kms_master_key_id}"
-      }
-    }
-  } */
-
-  tags = "${module.labels.tags[count.index]}"
-}
-
-## If encryption is true then create bucket with encryption
-resource "aws_s3_bucket" "encryption" {
-  count 	          = "${var.encryption ? 1 : 0}"
-
-  count             = "${module.enabled.value ? length(var.names) : 0}"
-  bucket            = "${module.labels.id[count.index]}"
-  acl               = "${var.public ? "public-read" : "private"}"
-  force_destroy     = "${var.force_destroy}"
-
-  versioning {
-    enabled = "${var.versioned}"
-  }
-
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        sse_algorithm   = "${var.kms_master_key_id != "" ? "aws:kms" : "AES256"}"
-        kms_master_key_id = "${var.kms_master_key_id}"
+        sse_algorithm   = "${var.sse_algorithm}"
+        kms_master_key_id = "${var.kms_master_key_arn}"
       }
     }
   }
 
   tags = "${module.labels.tags[count.index]}"
 }
+
+# ## If encryption is true then create bucket with encryption
+# resource "aws_s3_bucket" "encryption" {
+#   count 	          = "${var.encryption ? 1 : 0}"
+
+#   count             = "${module.enabled.value ? length(var.names) : 0}"
+#   bucket            = "${module.labels.id[count.index]}"
+#   acl               = "${var.public ? "public-read" : "private"}"
+#   force_destroy     = "${var.force_destroy}"
+
+#   versioning {
+#     enabled = "${var.versioned}"
+#   }
+
+#   server_side_encryption_configuration {
+#     rule {
+#       apply_server_side_encryption_by_default {
+#         sse_algorithm   = "${var.kms_master_key_id != "" ? "aws:kms" : "AES256"}"
+#         kms_master_key_id = "${var.kms_master_key_id}"
+#       }
+#     }
+#   }
+
+#   tags = "${module.labels.tags[count.index]}"
+# }
 
 resource "aws_s3_bucket_public_access_block" "this" {
   #depends_on              = ["aws_s3_bucket.this", "aws_s3_bucket.encryption"]
