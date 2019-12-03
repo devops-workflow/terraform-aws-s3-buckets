@@ -94,17 +94,6 @@ variable "force_destroy" {
   default     = false
 }
 
-variable "encryption" {
-  description = "The server-side encryption algorithm to use. If true, it will enable default encryption, will uses AWS S3-Managed Keys (SSE-S3)"
-  default     = false
-}
-
-variable "kms_master_key_id" {
-  description = "ARN of AWS KMS-Managed Keys (SSE-KMS)"
-  type        = "string"
-  default     = ""
-}
-
 variable "sse_algorithm" {
   type        = "string"
   default     = "AES256"
