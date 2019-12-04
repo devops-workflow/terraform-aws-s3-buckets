@@ -94,16 +94,22 @@ variable "force_destroy" {
   default     = false
 }
 
-variable "sse_algorithm" {
+variable "encryption" {
   type        = "string"
-  default     = "AES256"
-  description = "The server-side encryption algorithm to use. Valid values are `AES256` and `aws:kms`"
+  default     = "false"
+  description = "If encryption is true, create an S3 bucket with default encryption i.e. `AES256`"
 }
 
 variable "kms_master_key_arn" {
   type        = "string"
   default     = ""
   description = "The AWS KMS master key ARN used for the `SSE-KMS` encryption. This can only be used when you set the value of `sse_algorithm` as `aws:kms`. The default aws/s3 AWS KMS master key is used if this element is absent while the `sse_algorithm` is `aws:kms`"
+}
+
+variable "allow_encrypted_uploads_only" {
+  type        = "string"
+  default     = "false"
+  description = "Set to `true` to prevent uploads of unencrypted objects to S3 bucket"
 }
 
 variable "principal" {

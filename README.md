@@ -32,6 +32,7 @@ terraform import module.s3-buckets.aws_s3_bucket.this[0] corp-dev-bucket1
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
+| allow_encrypted_uploads_only | Set to `true` to prevent uploads of unencrypted objects to S3 bucket | string | `false` | no |
 | attributes | Suffix name with additional attributes (policy, role, etc.) | list | `<list>` | no |
 | block\_public\_acls | Whether Amazon S3 should block public ACLs for this bucket | string | `"true"` | no |
 | block\_public\_policy | Whether Amazon S3 should block public bucket policies for this bucket | string | `"true"` | no |
@@ -39,9 +40,10 @@ terraform import module.s3-buckets.aws_s3_bucket.this[0] corp-dev-bucket1
 | delimiter | Delimiter to be used between `name`, `namespaces`, `attributes`, etc. | string | `"-"` | no |
 | enabled | Set to false to prevent the module from creating anything | string | `"true"` | no |
 | environment | Environment (ex: `dev`, `qa`, `stage`, `prod`). (Second or top level namespace. Depending on namespacing options) | string | n/a | yes |
+| encryption | If encryption is true, create an S3 bucket with default encryption i.e. `AES256` | string | false | no |
 | force\_destroy | Delete all objects in bucket on destroy | string | `"false"` | no |
 | ignore\_public\_acls | Whether Amazon S3 should ignore public ACLs for this bucket | string | `"true"` | no |
-| kms_master_key_arn | The AWS KMS master key ARN used for the `SSE-KMS` encryption. This can only be used when you set the value of `sse_algorithm` as `aws:kms`. The default aws/s3 AWS KMS master key is used if this element is absent while the `sse_algorithm` is `aws:kms` | string | `` | no |
+| kms_master_key_arn | The AWS KMS master key ARN used for the `SSE-KMS` encryption. This can only be used when you set the value of `encryption` as `true`. The default aws/s3 AWS KMS master key is used if this element is absent | string | `` | no |
 | monitor | TAG: Should resource be monitored | string | `"UNDEF-S3-Buckets"` | no |
 | names | List of S3 bucket names | list | n/a | yes |
 | namespace-env | Prefix name with the environment. If true, format is: <env>-<name> | string | `"true"` | no |
