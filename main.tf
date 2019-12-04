@@ -39,18 +39,17 @@ module "labels" {
   team          = "${var.team}"
 }
 
-
 locals {
   encryption_def = {
     "true" = [{
-        rule = [{
-          apply_server_side_encryption_by_default = [{
-            sse_algorithm   = "${var.kms_master_key_arn != "" ? "aws:kms" : "AES256"}"
-            kms_master_key_id = "${var.kms_master_key_arn}"
-          }]
+      rule = [{
+        apply_server_side_encryption_by_default = [{
+          sse_algorithm     = "${var.kms_master_key_arn != "" ? "aws:kms" : "AES256"}"
+          kms_master_key_id = "${var.kms_master_key_arn}"
         }]
-      }
-    ]
+      }]
+    }]
+
     "false" = []
   }
 
@@ -81,6 +80,7 @@ resource "aws_s3_bucket" "this" {
   #request_payer
   #replication_configuration {}
 
+
   # server_side_encryption_configuration {
   #   rule {
   #     apply_server_side_encryption_by_default {
@@ -103,7 +103,6 @@ resource "aws_s3_bucket_public_access_block" "this" {
   restrict_public_buckets = "${var.restrict_public_buckets}"
 }
 
-
 # data "template_file" "policy_s3_bucket" {
 #   # TODO: add condition to select public or private template
 #   #   or 2 data and condition in policy for which data to use
@@ -123,7 +122,7 @@ resource "aws_s3_bucket_public_access_block" "this" {
 
 # https://aws.amazon.com/blogs/security/how-to-prevent-uploads-of-unencrypted-objects-to-amazon-s3/
 data "aws_iam_policy_document" "bucket_policy" {
-  count  = "${module.enabled.value && var.allow_encrypted_uploads_only == "true" ? length(var.names) : 0}"
+  count = "${module.enabled.value && var.allow_encrypted_uploads_only == "true" ? length(var.names) : 0}"
 
   statement {
     sid       = "DenyIncorrectEncryptionHeader"
@@ -182,9 +181,10 @@ data "aws_iam_policy_document" "bucket_policy" {
 
 resource "aws_s3_bucket_policy" "default" {
   depends_on = ["aws_s3_bucket.this"]
-  count  = "${module.enabled.value && var.allow_encrypted_uploads_only == "true" ? length(var.names) : 0}"
-  bucket = "${module.labels.id[count.index]}"
-  policy = "${element(data.aws_iam_policy_document.bucket_policy.*.json, count.index)}"
+  count      = "${module.enabled.value && var.allow_encrypted_uploads_only == "true" ? length(var.names) : 0}"
+  bucket     = "${module.labels.id[count.index]}"
+  policy     = "${element(data.aws_iam_policy_document.bucket_policy.*.json, count.index)}"
+
   #policy = "${join("", data.aws_iam_policy_document.bucket_policy.*.json, count.index)}"
 }
 
