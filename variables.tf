@@ -81,7 +81,9 @@ variable "team" {
   default     = "UNDEF-S3-Buckets"
 }
 
+//
 // Module specific Variables
+//
 variable "enabled" {
   description = "Set to false to prevent the module from creating anything"
   default     = true
@@ -90,6 +92,24 @@ variable "enabled" {
 variable "force_destroy" {
   description = "Delete all objects in bucket on destroy"
   default     = false
+}
+
+variable "encryption" {
+  type        = "string"
+  default     = "false"
+  description = "If encryption is true, create an S3 bucket with default encryption i.e. `AES256`"
+}
+
+variable "kms_master_key_arn" {
+  type        = "string"
+  default     = ""
+  description = "The AWS KMS master key ARN used for the SSE-KMS encryption. This can only be used when you set the value of encryption as true. The default aws/s3 AWS KMS master key is used if this element is absent"
+}
+
+variable "allow_encrypted_uploads_only" {
+  type        = "string"
+  default     = "false"
+  description = "Set to `true` to prevent uploads of unencrypted objects to S3 bucket"
 }
 
 variable "principal" {
@@ -105,4 +125,27 @@ variable "public" {
 variable "versioned" {
   description = "Version the bucket"
   default     = false
+}
+
+//
+// S3 Public restriction block
+//
+variable "block_public_acls" {
+  description = "Whether Amazon S3 should block public ACLs for this bucket"
+  default     = true
+}
+
+variable "block_public_policy" {
+  description = "Whether Amazon S3 should block public bucket policies for this bucket"
+  default     = true
+}
+
+variable "ignore_public_acls" {
+  description = "Whether Amazon S3 should ignore public ACLs for this bucket"
+  default     = true
+}
+
+variable "restrict_public_buckets" {
+  description = "Whether Amazon S3 should restrict public bucket policies for this bucket"
+  default     = true
 }

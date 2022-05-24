@@ -18,6 +18,11 @@ output "ids" {
   value       = "${aws_s3_bucket.this.*.id}"
 }
 
+output "name_bases" {
+  description = "List of base names used to generate S3 bucket names"
+  value       = "${var.names}"
+}
+
 output "names" {
   description = "List of AWS S3 Bucket Names"
   value       = "${aws_s3_bucket.this.*.id}"
